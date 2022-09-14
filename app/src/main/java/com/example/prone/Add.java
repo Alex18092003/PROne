@@ -1,42 +1,43 @@
 package com.example.prone;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.util.Log;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class MainActivity extends AppCompatActivity {
+import android.widget.Button;
+import android.widget.EditText;
 
+public class Add extends AppCompatActivity {
+
+    EditText Name, Surname, Age, Kurs;
+    Button Back, Add;
     Connection connection;
     String ConnectionResult = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_add);
+    }
+    public  void  goBack(View view)
+    {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        Name = (EditText) findViewById(R.id.etName);
+        Surname = (EditText) findViewById(R.id.etSurname);
+        Age = (EditText) findViewById(R.id.etAge);
+        Kurs = (EditText) findViewById(R.id.etKurs);
+        Back = (Button) findViewById(R.id.btnBack);
+        Add = (Button) findViewById(R.id.btnAd);
     }
 
-    public  void  goAdd(View view)
+    public void AddingDataFromSQL(View v)
     {
-    Intent intent = new Intent(this, Add.class);
-    startActivity(intent);
-    }
-
-
-    public void GetTextFromSQL(View v)
-    {
-        TextView ID = findViewById(R.id.txtID);
-        TextView Name = findViewById(R.id.txtName);
-        TextView Surname = findViewById(R.id.txtSurname);
-        TextView Age = findViewById(R.id.txtAge);
-        TextView Kurs = findViewById(R.id.txtKurs);
-
         try {
             ConnectionHelpers connectionHelpers = new ConnectionHelpers();
             connection = connectionHelpers.connectionClass();
@@ -64,4 +65,5 @@ public class MainActivity extends AppCompatActivity {
             Log.e("Error", ex.getMessage());
         }
     }
+
 }
