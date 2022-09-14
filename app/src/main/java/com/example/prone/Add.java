@@ -3,6 +3,7 @@ package com.example.prone;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.util.Log;
@@ -12,10 +13,12 @@ import java.sql.Statement;
 
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class Add extends AppCompatActivity {
 
     EditText Name, Surname, Age, Kurs;
+    TextView Status;
     Button Back, Add;
     Connection connection;
     String ConnectionResult = "";
@@ -32,6 +35,9 @@ public class Add extends AppCompatActivity {
         Kurs = (EditText) findViewById(R.id.etKurs);
         Back = (Button) findViewById(R.id.btnBack);
         Add = (Button) findViewById(R.id.btnAd);
+        Status = (TextView) findViewById(R.id.status);
+
+
     }
     public  void  goBack(View view)
     {
@@ -49,9 +55,16 @@ public class Add extends AppCompatActivity {
             if (connection !=null)
             {
                 String query = "INSERT INTO Student (Name, Surname, Age, Kurs) VALUES ('"+Name.getText()+"', '"+Surname.getText()+"', '"+Age.getText()+"', '"+Kurs.getText()+"')";
+
                 Statement statement = connection.createStatement();
-                //ResultSet resultSet = statement.executeQuery(query);
+
                 statement.executeUpdate(query);
+                Status.setText("Данные успешно сохранены в БД");
+                Name.setText("");
+                Surname.setText("");
+                Age.setText("");
+                Kurs.setText("");
+
 
             }
             else
@@ -64,5 +77,6 @@ public class Add extends AppCompatActivity {
             Log.e("Error", ex.getMessage());
         }
     }
+
 
 }
