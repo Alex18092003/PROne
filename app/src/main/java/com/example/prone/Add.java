@@ -19,15 +19,13 @@ public class Add extends AppCompatActivity {
     Button Back, Add;
     Connection connection;
     String ConnectionResult = "";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
-    }
-    public  void  goBack(View view)
-    {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+
         Name = (EditText) findViewById(R.id.etName);
         Surname = (EditText) findViewById(R.id.etSurname);
         Age = (EditText) findViewById(R.id.etAge);
@@ -35,6 +33,13 @@ public class Add extends AppCompatActivity {
         Back = (Button) findViewById(R.id.btnBack);
         Add = (Button) findViewById(R.id.btnAd);
     }
+    public  void  goBack(View view)
+    {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
+    }
+
 
     public void AddingDataFromSQL(View v)
     {
@@ -43,17 +48,11 @@ public class Add extends AppCompatActivity {
             connection = connectionHelpers.connectionClass();
             if (connection !=null)
             {
-                String query = "Select * From Student";
+                String query = "INSERT INTO Student (Name, Surname, Age, Kurs) VALUES ('"+Name.getText()+"', '"+Surname.getText()+"', '"+Age.getText()+"', '"+Kurs.getText()+"')";
                 Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(query);
-                while (resultSet.next())
-                {
-                    ID.setText(resultSet.getString(1));
-                    Name.setText((resultSet.getString(2)));
-                    Surname.setText((resultSet.getString(3)));
-                    Age.setText((resultSet.getString(4)));
-                    Kurs.setText((resultSet.getString(5)));
-                }
+                //ResultSet resultSet = statement.executeQuery(query);
+                statement.executeUpdate(query);
+
             }
             else
             {
