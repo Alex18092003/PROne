@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/Kod_student"
-        android:layout_width="25dp"
+        android:layout_width="26dp"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:textSize="20dp"></TextView>
