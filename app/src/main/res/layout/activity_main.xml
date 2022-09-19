@@ -6,70 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/txtID"
+    <Button
+        android:id="@+id/btnLoad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Код"
-        android:textSize="30dp"
+        android:layout_marginStart="10dp"
+        android:text="Загрузить БД"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnAdd"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        android:textSize="10dp"
+        app:layout_constraintVertical_bias="0.951" />
 
-    <TextView
-        android:id="@+id/txtName"
+    <Button
+        android:id="@+id/btnEditing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Имя"
-        android:textSize="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.524"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtID" />
-
-    <TextView
-        android:id="@+id/txtSurname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Фамилия"
-        android:textSize="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.528"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtName" />
-
-    <TextView
-        android:id="@+id/txtAge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Возраст"
-        android:textSize="30dp"
+        android:text="Редактирование"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSurname" />
-
-    <TextView
-        android:id="@+id/txtKurs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Курс"
-        android:textSize="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.518"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAge" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="GetTextFromSQL"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtKurs" />
+        app:layout_constraintTop_toBottomOf="@+id/gridViewTable"
+        app:layout_constraintVertical_bias="0.289" />
 
     <Button
         android:id="@+id/btnAdd"
@@ -77,8 +38,23 @@
         android:layout_height="wrap_content"
         android:onClick="goAdd"
         android:text="Добавить запись"
+        android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnLoad"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtKurs" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95" />
+
+    <GridView
+        android:id="@+id/gridViewTable"
+        android:layout_width="382dp"
+        android:layout_height="560dp"
+        android:numColumns="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+    </GridView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

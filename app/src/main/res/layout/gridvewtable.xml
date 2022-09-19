@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/Kod_student"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20dp"></TextView>
+
+    <TextView
+        android:id="@+id/Name"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20dp"></TextView>
+
+    <TextView
+        android:id="@+id/Surname"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20dp"></TextView>
+
+    <TextView
+        android:id="@+id/Age"
+        android:layout_width="35dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20dp"></TextView>
+
+    <TextView
+        android:id="@+id/Kurs"
+        android:layout_width="35dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20dp"></TextView>
+
+</LinearLayout>
