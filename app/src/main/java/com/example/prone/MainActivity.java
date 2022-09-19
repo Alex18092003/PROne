@@ -38,8 +38,6 @@ public class MainActivity extends AppCompatActivity  {
 
         Button btnLoad = (Button) findViewById(R.id.btnLoad);
         GridView list = (GridView) findViewById(R.id.gridViewTable);
-
-
         btnLoad.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
@@ -93,9 +91,6 @@ public class MainActivity extends AppCompatActivity  {
     startActivity(intent);
 
     }
-
-
-
 }
 
 
