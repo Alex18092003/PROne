@@ -37,14 +37,14 @@ public class Add extends AppCompatActivity {
         status = (TextView) findViewById(R.id.status);
     }
 
-    public  void  goBack(View view)
+    public  void  goBack(View view) // выход в главное меню, кнопка "Назад"
     {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
 
-    public void AddingDataFromSQL(View v)
+    public void AddingDataFromSQL(View v) // добавление новой записи в БД, кнопка "Добавить"
     {
         try {
             ConnectionHelpers connectionHelpers = new ConnectionHelpers();
@@ -68,7 +68,7 @@ public class Add extends AppCompatActivity {
         }
     }
 
-    public  void CleaningOfAllFields(View v)
+    public  void CleaningOfAllFields(View v) // очистка всех полей, кнопка "Очистить"
     {
         try {
             Name.setText("");

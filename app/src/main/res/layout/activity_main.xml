@@ -11,7 +11,7 @@
         android:id="@+id/btnClear"
         android:layout_width="108dp"
         android:layout_height="41dp"
-        android:onClick="goAdd"
+        android:onClick="CleaningOfAllFields"
         android:text="Очистить"
         android:textSize="7dp"
         app:layout_constraintBottom_toBottomOf="parent"

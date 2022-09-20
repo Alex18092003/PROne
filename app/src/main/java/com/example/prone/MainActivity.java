@@ -30,26 +30,24 @@ public class MainActivity extends AppCompatActivity  {
     Connection connection;
     String ConnectionResult = "";
     SimpleAdapter adapter;
+    GridView list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        list = (GridView) findViewById(R.id.gridViewTable);
     }
 
-    public  void  goAdd(View view)
+    public  void  goAdd(View view) // переход в окно добавления новой записи, кнопка "Добавить"
     {
     Intent intent = new Intent(this, Add.class);
     startActivity(intent);
     }
 
-    public  void GetTableSql(View view)
+    public  void GetTableSql(View view) // вывод БД, кнопка "Загрузить БД"
     {
-        Button btnLoad = (Button) findViewById(R.id.btnLoad);
-        GridView list = (GridView) findViewById(R.id.gridViewTable);
-        btnLoad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 List <Map<String, String>> data = new ArrayList<Map<String, String>>();
                 try
                 {
@@ -75,6 +73,7 @@ public class MainActivity extends AppCompatActivity  {
                         int [] to = {R.id.Kod_student, R.id.Name, R.id.Surname, R.id.Age, R.id.Kurs};
                         adapter = new SimpleAdapter(MainActivity.this, data, R.layout.gridvewtable, from, to);
                         list.setAdapter(adapter);
+
                     }
                     else
                     {
@@ -86,8 +85,19 @@ public class MainActivity extends AppCompatActivity  {
                 {
                     Log.e("Error", ex.getMessage());
                 }
-            }
-        });
+    }
+
+    public  void CleaningOfAllFields(View v) // очистка таблицы бд, кнопка "Очистить"
+    {
+        try {
+           list.setAdapter(null);
+
+        }
+        catch (Exception ex)
+        {
+            Log.e("Error", ex.getMessage());
+        }
+
     }
 
 }
