@@ -46,6 +46,12 @@ public class MainActivity extends AppCompatActivity  {
     startActivity(intent);
     }
 
+    public  void goEditing(View view) // переход в окно добавления новой записи, кнопка "Добавить"
+    {
+        Intent intent = new Intent(this, Add.class);
+        startActivity(intent);
+    }
+
     public  void GetTableSql(View view) // вывод БД, кнопка "Загрузить БД"
     {
                 List <Map<String, String>> data = new ArrayList<Map<String, String>>();

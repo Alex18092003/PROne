@@ -53,6 +53,7 @@
         android:id="@+id/btnCreate"
         android:layout_width="108dp"
         android:layout_height="41dp"
+        android:onClick="goToEditing"
         android:text="Редактировать"
         android:textSize="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
