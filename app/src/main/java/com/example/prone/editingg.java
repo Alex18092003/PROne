@@ -45,9 +45,10 @@ public class editingg extends AppCompatActivity {
             connection = connectionHelpers.connectionClass();
             if (connection !=null)
             {
-                String query = "Update Student set (Kod_student = '"+Kod.getText()+"',Name = '"+Name.getText()+"' , Surname = '"+Surname.getText()+"', Age = '"+Age.getText()+"', Kurs = '"+Kurs.getText()+"')";
+                String query = "UPDATE Student SET Name = '"+Name.getText().toString()+"' , Surname = '"+Surname.getText().toString()+"', Age = '"+Age.getText().toString()+"', Kurs = '"+Kurs.getText().toString()+"' where Kod_student = '"+Kod.getText().toString()+"'";
                 Statement statement = connection.createStatement();
-                statement.executeUpdate(query);
+                ResultSet resultSet = statement.executeQuery(query);
+                //statement.executeUpdate(query);
                 status.setText("Успешное изменение записи");
             }
             else
@@ -94,7 +95,6 @@ public class editingg extends AppCompatActivity {
                 String query = "Select * From Student where Kod_student = '" + Kod.getText().toString() + "' ";
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);
-                //statement.executeUpdate(query);
                 while (resultSet.next())
                 {
                     Name.setText(resultSet.getString(2));
