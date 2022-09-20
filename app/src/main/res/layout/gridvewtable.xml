@@ -11,34 +11,34 @@
         android:layout_width="26dp"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:textSize="20dp"></TextView>
+        android:textSize="10dp"></TextView>
 
     <TextView
         android:id="@+id/Name"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:textSize="20dp"></TextView>
+        android:textSize="10dp"></TextView>
 
     <TextView
         android:id="@+id/Surname"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:textSize="20dp"></TextView>
+        android:textSize="10dp"></TextView>
 
     <TextView
         android:id="@+id/Age"
         android:layout_width="35dp"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:textSize="20dp"></TextView>
+        android:textSize="10dp"></TextView>
 
     <TextView
         android:id="@+id/Kurs"
         android:layout_width="35dp"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:textSize="20dp"></TextView>
+        android:textSize="10dp"></TextView>
 
 </LinearLayout>

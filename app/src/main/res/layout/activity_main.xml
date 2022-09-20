@@ -8,31 +8,32 @@
 
 
     <Button
+        android:id="@+id/btnClear"
+        android:layout_width="108dp"
+        android:layout_height="41dp"
+        android:onClick="goAdd"
+        android:text="Очистить"
+        android:textSize="7dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.785"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.949" />
+
+    <Button
         android:id="@+id/btnLoad"
         android:layout_width="108dp"
         android:layout_height="41dp"
+        android:onClick="GetTableSql"
         android:text="Загрузить БД"
         android:textSize="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.784"
+        app:layout_constraintHorizontal_bias="0.785"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.82" />
-
-    <Button
-        android:id="@+id/btnCreate"
-        android:layout_width="108dp"
-        android:layout_height="41dp"
-
-        android:text="Редактировать"
-        android:textSize="7dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.227"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.92" />
+        app:layout_constraintVertical_bias="0.849" />
 
     <Button
         android:id="@+id/btnAdd"
@@ -46,26 +47,25 @@
         app:layout_constraintHorizontal_bias="0.227"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.82" />
+        app:layout_constraintVertical_bias="0.849" />
 
     <Button
-        android:id="@+id/btnClear"
+        android:id="@+id/btnCreate"
         android:layout_width="108dp"
         android:layout_height="41dp"
-        android:onClick="goAdd"
-        android:text="Очистить"
+        android:text="Редактировать"
         android:textSize="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.784"
+        app:layout_constraintHorizontal_bias="0.227"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.92" />
+        app:layout_constraintVertical_bias="0.949" />
 
     <GridView
         android:id="@+id/gridViewTable"
-        android:layout_width="303dp"
-        android:layout_height="357dp"
+        android:layout_width="304dp"
+        android:layout_height="332dp"
         android:layout_marginTop="4dp"
         android:numColumns="1"
         app:layout_constraintEnd_toEndOf="parent"

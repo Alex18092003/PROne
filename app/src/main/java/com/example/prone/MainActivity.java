@@ -35,62 +35,63 @@ public class MainActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Button btnLoad = (Button) findViewById(R.id.btnLoad);
-        GridView list = (GridView) findViewById(R.id.gridViewTable);
-        btnLoad.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        List <Map<String, String>> data = new ArrayList<Map<String, String>>();
-
-        try
-        {
-            ConnectionHelpers connectionHelpers = new ConnectionHelpers();
-            connection = connectionHelpers.connectionClass();
-            if (connection !=null)
-            {
-                String query = "Select * From Student";
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(query);
-                while (resultSet.next())
-                {
-
-                    Map<String, String> tab = new HashMap<String, String>();
-                    tab.put("Kod_student", resultSet.getString("Kod_student"));
-                    tab.put("Name", resultSet.getString("Name"));
-                    tab.put("Surname", resultSet.getString("Surname"));
-                    tab.put("Age", resultSet.getString("Age"));
-                    tab.put("Kurs", resultSet.getString("Kurs"));
-                    data.add(tab);
-
-                }
-                String [] from = {"Kod_student", "Name", "Surname", "Age", "Kurs"};
-                int [] to = {R.id.Kod_student, R.id.Name, R.id.Surname, R.id.Age, R.id.Kurs};
-                adapter = new SimpleAdapter(MainActivity.this, data, R.layout.gridvewtable, from, to);
-                list.setAdapter(adapter);
-            }
-            else
-            {
-                ConnectionResult="Check Connection";
-            }
-
-        }
-        catch (Exception ex)
-        {
-            Log.e("Error", ex.getMessage());
-        }
-    }
-});
-
-
     }
 
     public  void  goAdd(View view)
     {
     Intent intent = new Intent(this, Add.class);
     startActivity(intent);
-
     }
+
+    public  void GetTableSql(View view)
+    {
+        Button btnLoad = (Button) findViewById(R.id.btnLoad);
+        GridView list = (GridView) findViewById(R.id.gridViewTable);
+        btnLoad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List <Map<String, String>> data = new ArrayList<Map<String, String>>();
+
+                try
+                {
+                    ConnectionHelpers connectionHelpers = new ConnectionHelpers();
+                    connection = connectionHelpers.connectionClass();
+                    if (connection !=null)
+                    {
+                        String query = "Select * From Student";
+                        Statement statement = connection.createStatement();
+                        ResultSet resultSet = statement.executeQuery(query);
+                        while (resultSet.next())
+                        {
+
+                            Map<String, String> tab = new HashMap<String, String>();
+                            tab.put("Kod_student", resultSet.getString("Kod_student"));
+                            tab.put("Name", resultSet.getString("Name"));
+                            tab.put("Surname", resultSet.getString("Surname"));
+                            tab.put("Age", resultSet.getString("Age"));
+                            tab.put("Kurs", resultSet.getString("Kurs"));
+                            data.add(tab);
+
+                        }
+                        String [] from = {"Kod_student", "Name", "Surname", "Age", "Kurs"};
+                        int [] to = {R.id.Kod_student, R.id.Name, R.id.Surname, R.id.Age, R.id.Kurs};
+                        adapter = new SimpleAdapter(MainActivity.this, data, R.layout.gridvewtable, from, to);
+                        list.setAdapter(adapter);
+                    }
+                    else
+                    {
+                        ConnectionResult="Check Connection";
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Log.e("Error", ex.getMessage());
+                }
+            }
+        });
+    }
+
 }
 
 
