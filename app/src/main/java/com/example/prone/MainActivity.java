@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
@@ -32,23 +33,25 @@ public class MainActivity extends AppCompatActivity  {
     SimpleAdapter adapter;
     GridView list;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         list = (GridView) findViewById(R.id.gridViewTable);
+
     }
 
-    public  void  goAdd(View view) // переход в окно добавления новой записи, кнопка "Добавить"
+    public  void  goAdd(View view) // переход в окно добавления новой записи, кнопка "Добавить запись"
     {
     Intent intent = new Intent(this, Add.class);
     startActivity(intent);
     }
 
-    public  void goEditing(View view) // переход в окно добавления новой записи, кнопка "Добавить"
+    public  void goEditing(View view) // переход в окно редактирования данных, кнопка "Редактировать"
     {
-        Intent intent = new Intent(this, Add.class);
+        Intent intent = new Intent(this, editingg.class);
         startActivity(intent);
     }
 
@@ -77,6 +80,7 @@ public class MainActivity extends AppCompatActivity  {
                         }
                         String [] from = {"Kod_student", "Name", "Surname", "Age", "Kurs"};
                         int [] to = {R.id.Kod_student, R.id.Name, R.id.Surname, R.id.Age, R.id.Kurs};
+
                         adapter = new SimpleAdapter(MainActivity.this, data, R.layout.gridvewtable, from, to);
                         list.setAdapter(adapter);
 

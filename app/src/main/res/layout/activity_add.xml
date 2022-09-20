@@ -9,7 +9,7 @@
     tools:layout_editor_absoluteY="30dp">
 
     <Button
-        android:id="@+id/btnAd"
+        android:id="@+id/btnAdd"
         android:layout_width="108dp"
         android:layout_height="41dp"
         android:onClick="AddingDataFromSQL"

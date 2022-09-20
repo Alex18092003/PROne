@@ -18,7 +18,7 @@ public class Add extends AppCompatActivity {
 
     EditText Name, Surname, Age, Kurs;
     TextView status;
-    Button Back, Add;
+
     Connection connection;
     String ConnectionResult = "";
 
@@ -32,8 +32,6 @@ public class Add extends AppCompatActivity {
         Surname = (EditText) findViewById(R.id.etSurname);
         Age = (EditText) findViewById(R.id.etAge);
         Kurs = (EditText) findViewById(R.id.etKurs);
-        Back = (Button) findViewById(R.id.btnBack);
-        Add = (Button) findViewById(R.id.btnAd);
         status = (TextView) findViewById(R.id.status);
     }
 
@@ -53,7 +51,7 @@ public class Add extends AppCompatActivity {
             {
                 String query = "INSERT INTO Student (Name, Surname, Age, Kurs) VALUES ('"+Name.getText()+"', '"+Surname.getText()+"', '"+Age.getText()+"', '"+Kurs.getText()+"')";
                 Statement statement = connection.createStatement();
-                //ResultSet resultSet = statement.executeQuery(query);
+                ResultSet resultSet = statement.executeQuery(query);
                 statement.executeUpdate(query);
                 status.setText("Успешное добаление новой записи");
             }
