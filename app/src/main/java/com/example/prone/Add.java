@@ -12,10 +12,12 @@ import java.sql.Statement;
 
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class Add extends AppCompatActivity {
 
     EditText Name, Surname, Age, Kurs;
+    TextView status;
     Button Back, Add;
     Connection connection;
     String ConnectionResult = "";
@@ -32,12 +34,13 @@ public class Add extends AppCompatActivity {
         Kurs = (EditText) findViewById(R.id.etKurs);
         Back = (Button) findViewById(R.id.btnBack);
         Add = (Button) findViewById(R.id.btnAd);
+        status = (TextView) findViewById(R.id.status);
     }
+
     public  void  goBack(View view)
     {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-
     }
 
 
@@ -52,7 +55,7 @@ public class Add extends AppCompatActivity {
                 Statement statement = connection.createStatement();
                 //ResultSet resultSet = statement.executeQuery(query);
                 statement.executeUpdate(query);
-
+                status.setText("Успешное добаление новой записи");
             }
             else
             {
@@ -64,5 +67,23 @@ public class Add extends AppCompatActivity {
             Log.e("Error", ex.getMessage());
         }
     }
+
+    public  void CleaningOfAllFields(View v)
+    {
+        try {
+            Name.setText("");
+            Surname.setText("");
+            Age.setText("");
+            Kurs.setText("");
+            status.setText("...");
+        }
+        catch (Exception ex)
+        {
+            Log.e("Error", ex.getMessage());
+        }
+
+    }
+
+
 
 }

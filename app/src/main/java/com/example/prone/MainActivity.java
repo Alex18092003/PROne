@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
                 List <Map<String, String>> data = new ArrayList<Map<String, String>>();
-
                 try
                 {
                     ConnectionHelpers connectionHelpers = new ConnectionHelpers();
@@ -63,7 +62,6 @@ public class MainActivity extends AppCompatActivity  {
                         ResultSet resultSet = statement.executeQuery(query);
                         while (resultSet.next())
                         {
-
                             Map<String, String> tab = new HashMap<String, String>();
                             tab.put("Kod_student", resultSet.getString("Kod_student"));
                             tab.put("Name", resultSet.getString("Name"));
