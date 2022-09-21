@@ -78,73 +78,63 @@
 
     <Button
         android:id="@+id/btnBack"
-        android:layout_width="108dp"
-        android:layout_height="41dp"
         android:onClick="goBack"
         android:text="Назад"
-        android:textSize="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.095"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.72" />
+        app:layout_constraintVertical_bias="0.72"
+        style="@style/MyButtonStyle"/>
 
     <Button
         android:id="@+id/btnClear"
-        android:layout_width="108dp"
-        android:layout_height="41dp"
         android:onClick="CleaningOfAllFields"
         android:text="Очистить поля"
-        android:textSize="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.815" />
+        app:layout_constraintVertical_bias="0.815"
+        style="@style/MyButtonStyle"/>
 
     <Button
         android:id="@+id/btnChange"
-        android:layout_width="108dp"
-        android:layout_height="41dp"
         android:onClick="ChangingData"
         android:text="Сохранить изменения"
-        android:textSize="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.72" />
+        app:layout_constraintVertical_bias="0.72"
+        style="@style/MyButtonStyle"/>
 
     <Button
         android:id="@+id/btnDelete"
-        android:layout_width="108dp"
-        android:layout_height="41dp"
         android:onClick="DeleteData"
         android:text="Удалить"
-        android:textSize="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.904"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.72" />
+        app:layout_constraintVertical_bias="0.72"
+        style="@style/MyButtonStyle"/>
 
     <Button
         android:id="@+id/btnGet"
-        android:layout_width="108dp"
-        android:layout_height="41dp"
         android:onClick="GetData"
         android:text="Получить"
-        android:textSize="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.892"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.075" />
+        app:layout_constraintVertical_bias="0.075"
+        style="@style/MyButtonStyle"/>
 
     <TextView
         android:id="@+id/status"

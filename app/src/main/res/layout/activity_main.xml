@@ -9,59 +9,52 @@
 
     <Button
         android:id="@+id/btnClear"
-        android:layout_width="108dp"
-        android:layout_height="41dp"
         android:onClick="CleaningOfAllFields"
         android:text="Очистить"
-        android:textSize="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.785"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.949" />
+        app:layout_constraintVertical_bias="0.949"
+        style="@style/MyButtonStyle"/>
 
     <Button
         android:id="@+id/btnLoad"
-        android:layout_width="108dp"
-        android:layout_height="41dp"
         android:onClick="GetTableSql"
         android:text="Загрузить БД"
-        android:textSize="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.785"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.849" />
+        app:layout_constraintVertical_bias="0.849"
+        style="@style/MyButtonStyle"/>
 
     <Button
         android:id="@+id/btnAdd"
-        android:layout_width="108dp"
-        android:layout_height="41dp"
         android:onClick="goAdd"
         android:text="Добавить запись"
-        android:textSize="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.227"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.849" />
+        app:layout_constraintVertical_bias="0.849"
+        style="@style/MyButtonStyle"/>
 
     <Button
         android:id="@+id/btnCreate"
-        android:layout_width="108dp"
-        android:layout_height="41dp"
+
         android:onClick="goEditing"
         android:text="Редактировать"
-        android:textSize="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.227"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.949" />
+        app:layout_constraintVertical_bias="0.949"
+        style="@style/MyButtonStyle"/>
 
     <GridView
         android:id="@+id/gridViewTable"
