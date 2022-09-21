@@ -21,7 +21,7 @@ public class editingg extends AppCompatActivity {
     EditText Kod, Name, Surname, Age, Kurs;
     Connection connection;
     String ConnectionResult = "";
-    TextView status;
+    TextView st, txstatus;
 
 
     @Override
@@ -35,6 +35,9 @@ public class editingg extends AppCompatActivity {
         Age = (EditText) findViewById(R.id.etAge);
         Kurs = (EditText) findViewById(R.id.etKurs);
 
+       st = (TextView) findViewById(R.id.st);
+        txstatus = (TextView) findViewById(R.id.txstatus);
+
 
     }
 
@@ -47,9 +50,15 @@ public class editingg extends AppCompatActivity {
             {
                 String query = "UPDATE Student SET Name = '"+Name.getText().toString()+"' , Surname = '"+Surname.getText().toString()+"', Age = '"+Age.getText().toString()+"', Kurs = '"+Kurs.getText().toString()+"' where Kod_student = '"+Kod.getText().toString()+"'";
                 Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(query);
-                //statement.executeUpdate(query);
-                status.setText("Успешное изменение записи");
+                //ResultSet resultSet = statement.executeQuery(query);
+                statement.executeUpdate(query);
+                st.setText("Успешное изменение записи");
+                txstatus.setText("Введите код студента, чтобы получить данные о нём");
+                Kod.setText("");
+                Name.setText("");
+                Surname.setText("");
+                Age.setText("");
+                Kurs.setText("");
             }
             else
             {
@@ -72,7 +81,14 @@ public class editingg extends AppCompatActivity {
                 String query = "Delete From Student where Kod_student = '"+Kod.getText()+"' ";
                 Statement statement = connection.createStatement();
                 statement.executeUpdate(query);
-                status.setText("Успешное удаление записи");
+                txstatus.setText("Успешное удаление записи");
+                Kod.setText("");
+                Name.setText("");
+                Surname.setText("");
+                Age.setText("");
+                Kurs.setText("");
+                st.setText("Введите код студента, чтобы получить данные о нём");
+
             }
             else
             {
@@ -103,7 +119,9 @@ public class editingg extends AppCompatActivity {
                    Kurs.setText(resultSet.getString(5));
 
                 }
-                status.setText("Успешное получение данных");
+                st.setText("Успешное получение данных");
+                txstatus.setText("...");
+
             }
             else
             {
@@ -131,7 +149,8 @@ public class editingg extends AppCompatActivity {
             Surname.setText("");
             Age.setText("");
             Kurs.setText("");
-            status.setText("...");
+            txstatus.setText("...");
+            st.setText("Введите код студента, чтобы получить данные о нём");
         }
         catch (Exception ex)
         {

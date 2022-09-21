@@ -51,15 +51,18 @@ public class Add extends AppCompatActivity {
             {
                 String query = "INSERT INTO Student (Name, Surname, Age, Kurs) VALUES ('"+Name.getText()+"', '"+Surname.getText()+"', '"+Age.getText()+"', '"+Kurs.getText()+"')";
                 Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(query);
+                //ResultSet resultSet = statement.executeQuery(query);
                 statement.executeUpdate(query);
-                status.setText("Успешное добаление новой записи");
+
+                status.setText("Успешное добаление новых записи");
             }
             else
             {
                 ConnectionResult="Check Connection";
             }
+
         }
+
         catch (Exception ex)
         {
             Log.e("Error", ex.getMessage());
@@ -73,7 +76,7 @@ public class Add extends AppCompatActivity {
             Surname.setText("");
             Age.setText("");
             Kurs.setText("");
-            status.setText("...");
+            status.setText("Введите данные");
         }
         catch (Exception ex)
         {

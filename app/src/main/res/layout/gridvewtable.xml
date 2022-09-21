@@ -8,37 +8,39 @@
 
     <TextView
         android:id="@+id/Kod_student"
-        android:layout_width="26dp"
+        android:layout_width="48dp"
         android:layout_height="wrap_content"
+        android:text="Код"
         android:textColor="@color/black"
-        android:textSize="10dp"></TextView>
+        android:textSize="15dp"></TextView>
 
     <TextView
         android:id="@+id/Name"
-        android:layout_width="100dp"
+        android:layout_width="85dp"
         android:layout_height="wrap_content"
+        android:text="Имя"
         android:textColor="@color/black"
-        android:textSize="10dp"></TextView>
+        android:textSize="15dp"></TextView>
 
     <TextView
         android:id="@+id/Surname"
-        android:layout_width="110dp"
+        android:layout_width="87dp"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:textSize="10dp"></TextView>
+        android:textSize="15dp"></TextView>
 
     <TextView
         android:id="@+id/Age"
-        android:layout_width="35dp"
+        android:layout_width="58dp"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:textSize="10dp"></TextView>
+        android:textSize="15dp"></TextView>
 
     <TextView
         android:id="@+id/Kurs"
-        android:layout_width="35dp"
+        android:layout_width="52dp"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:textSize="10dp"></TextView>
+        android:textSize="15dp"></TextView>
 
 </LinearLayout>
