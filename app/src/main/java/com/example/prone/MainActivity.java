@@ -32,16 +32,20 @@ public class MainActivity extends AppCompatActivity  {
     String ConnectionResult = "";
     SimpleAdapter adapter;
     GridView list;
-
+    private AdapterMask pAdapter;
+    private List<Mask> listProduct = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        list = (GridView) findViewById(R.id.gridViewTable);
-
+        ListView list = (GridView) findViewById(R.id.gridViewTable);
+        pAdapter = new AdapterMask(MainActivity.this, listProduct);
+        list.setAdapter(pAdapter);
+        new GetProducts().execute();
     }
+
 
     public  void  goAdd(View view) // переход в окно добавления новой записи, кнопка "Добавить запись"
     {
@@ -75,11 +79,12 @@ public class MainActivity extends AppCompatActivity  {
                             tab.put("Surname", resultSet.getString("Surname"));
                             tab.put("Age", resultSet.getString("Age"));
                             tab.put("Kurs", resultSet.getString("Kurs"));
+                            tab.put("Images", resultSet.getString("Images"));
                             data.add(tab);
 
                         }
-                        String [] from = {"Kod_student", "Name", "Surname", "Age", "Kurs"};
-                        int [] to = {R.id.Kod_student, R.id.Name, R.id.Surname, R.id.Age, R.id.Kurs};
+                        String [] from = {"Kod_student", "Name", "Surname", "Age", "Kurs", "Images"};
+                        int [] to = {R.id.Kod_student, R.id.Name, R.id.Surname, R.id.Age, R.id.Kurs , R.id.imageV};
 
                         adapter = new SimpleAdapter(MainActivity.this, data, R.layout.gridvewtable, from, to);
                         list.setAdapter(adapter);
