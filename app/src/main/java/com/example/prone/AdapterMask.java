@@ -58,6 +58,7 @@ public class AdapterMask  extends BaseAdapter{
 
         }
     }
+
     @Override
     public View getView(int i, View view, ViewGroup viewGroup)
     {
