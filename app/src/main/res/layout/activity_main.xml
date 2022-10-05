@@ -56,16 +56,15 @@
         app:layout_constraintVertical_bias="0.949"
         style="@style/MyButtonStyle"/>
 
-    <GridView
+    <ListView
         android:id="@+id/gridViewTable"
         android:layout_width="304dp"
         android:layout_height="332dp"
         android:numColumns="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toTopOf="parent">
-
-
-    </GridView>
+    </ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
