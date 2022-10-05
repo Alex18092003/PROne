@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity  {
 
         v = findViewById(com.google.android.material.R.id.ghost_view);
         GetTableSql(v);
+
     }
     public void enterMobile() {
         pAdapter.notifyDataSetInvalidated();
@@ -85,9 +86,9 @@ public class MainActivity extends AppCompatActivity  {
                         while (resultSet.next())
                         {
                             Mask tempMask = new Mask
-                                    (resultSet.getInt("ID"),
-                                            resultSet.getInt("Age"),
-                                            resultSet.getInt("Kurs"),
+                                    (resultSet.getInt("Kod_student"),
+                                            Integer.parseInt(resultSet.getString("Age")),
+                                            Integer.parseInt(resultSet.getString("Kurs")),
                                             resultSet.getString("Name"),
                                             resultSet.getString("Surname"),
                                             resultSet.getString("Images")

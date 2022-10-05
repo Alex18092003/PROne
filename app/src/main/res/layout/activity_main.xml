@@ -10,25 +10,13 @@
     <Button
         android:id="@+id/btnClear"
         android:onClick="CleaningOfAllFields"
-        android:text="Очистить"
+        android:text="Очистить экран"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.785"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.949"
-        style="@style/MyButtonStyle"/>
-
-    <Button
-        android:id="@+id/btnLoad"
-        android:onClick="GetTableSql"
-        android:text="Загрузить БД"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.785"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.849"
         style="@style/MyButtonStyle"/>
 
     <Button
@@ -40,30 +28,20 @@
         app:layout_constraintHorizontal_bias="0.227"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.849"
-        style="@style/MyButtonStyle"/>
-
-    <Button
-        android:id="@+id/btnCreate"
-
-        android:onClick="goEditing"
-        android:text="Редактировать"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.227"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.949"
         style="@style/MyButtonStyle"/>
 
+
     <ListView
         android:id="@+id/gridViewTable"
-        android:layout_width="304dp"
-        android:layout_height="332dp"
+        android:layout_width="300dp"
+        android:layout_height="600dp"
         android:numColumns="1"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </ListView>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"></ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

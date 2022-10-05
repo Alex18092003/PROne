@@ -53,8 +53,8 @@ public class Add extends AppCompatActivity {
                 Statement statement = connection.createStatement();
                 //ResultSet resultSet = statement.executeQuery(query);
                 statement.executeUpdate(query);
-
                 status.setText("Успешное добаление новых записи");
+
             }
             else
             {

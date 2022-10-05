@@ -23,7 +23,7 @@ import java.util.List;
 
 public class AdapterMask  extends BaseAdapter{
     private Context mContext;
-    //private ArrayList<Mask> maskList;
+    private ArrayList<Mask> mListMask;
     private OnItemClickListener mListener;
     String img="";
 
@@ -58,6 +58,7 @@ public class AdapterMask  extends BaseAdapter{
     {
         return maskList.get(i).getID();
     }
+
     public static Bitmap loadContactPhoto(ContentResolver cr, long id, Context context) {
         Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, id);
         InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(cr, uri);
@@ -94,8 +95,16 @@ public class AdapterMask  extends BaseAdapter{
         Surname.setText(mask.getSurname());
         Age.setText(Integer.toString(mask.getAge()));
         Kurs.setText(Integer.toString(mask.getKurs()));
-        Images.setImageBitmap(getUserImage(mask.getImage()));
+        Images.setImageBitmap(getUserImage(mask.getImages()));
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intenDetalis=new Intent(mContext,editingg.class);
+                intenDetalis.putExtra("Student",mask);
+                mContext.startActivity(intenDetalis);
 
+            }
+        });
 
         return v;
     }

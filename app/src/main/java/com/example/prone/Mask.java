@@ -5,20 +5,20 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Mask  implements Parcelable{
-    private int ID;
+    private int Kod_student;
     private int Age;
     private int Kurs;
     private String Surname;
     private String Name;
-    private String Image;
+    private String Images;
 
     protected Mask(Parcel in) {
-        ID = in.readInt();
+        Kod_student = in.readInt();
         Age = in.readInt();
-        Kurs = in.readInt();
+        Kurs =in.readInt();
         Surname = in.readString();
         Name =in.readString();
-        Image = in.readString();
+        Images = in.readString();
     }
 
 
@@ -34,41 +34,36 @@ public class Mask  implements Parcelable{
         }
     };
 
-    public int getID() {
-        return ID;
-    }
-    public void setID(int ID) {
-        this.ID = ID;
-    }
 
+
+    public void setID(int ID) {
+        this.Kod_student = Kod_student;
+    }
     public void setAge(int age) {
         Age = age;
     }
     public void setKurs(int kurs) {
         Kurs = kurs;
     }
-
-    public void setSurname(String surname) {
-        Surname = surname;
-    }
-
     public void setName(String name) {
         Name = name;
     }
-
-    public void setImage(String image) {
-        Image = image;
+    public void setSurname(String surname) {
+        Surname = surname;
+    }
+    public void setImages(String images) {
+        Images = images;
     }
 
 
 
-    public Mask(int ID, int age, int kurs, String name, String surname, String image) {
-        this.ID = ID;
-        Name = name;
-        Surname = surname;
+    public Mask(int Kod_student, int age, int kurs, String name, String surname, String images) {
+        this.Kod_student = Kod_student;
         Age = age;
         Kurs = kurs;
-        Image = image;
+        Name = name;
+        Surname = surname;
+        Images = images;
     }
     @Override
     public int describeContents() {
@@ -76,13 +71,17 @@ public class Mask  implements Parcelable{
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(ID);
-        parcel.writeInt(Kurs);
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeInt(Kod_student);
         parcel.writeInt(Age);
+        parcel.writeInt(Kurs);
         parcel.writeString(Name);
         parcel.writeString(Surname);
-        parcel.writeString(Image);
+        parcel.writeString(Images);
+    }
+
+    public int getID() {
+        return Kod_student;
     }
     public int getAge() {
         return Age;
@@ -93,12 +92,11 @@ public class Mask  implements Parcelable{
     public String getName() {
         return Name;
     }
-
     public String getSurname() {
         return Surname;
     }
-    public String getImage() {
-        return Image;
+    public String getImages() {
+        return Images;
     }
 
 }
