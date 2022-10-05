@@ -10,25 +10,17 @@ public class Mask  implements Parcelable{
     private int Kurs;
     private String Surname;
     private String Name;
-    private String ArticleNumber;
-
-    public Mask(int ID, int age,int kurs, String surname, String name, String articleNumber) {
-        this.ID = ID;
-        Age = age;
-        Kurs = kurs;
-        Surname = surname;
-        Name = name;
-        ArticleNumber = articleNumber;
-    }
+    private String Image;
 
     protected Mask(Parcel in) {
         ID = in.readInt();
         Age = in.readInt();
         Kurs = in.readInt();
         Surname = in.readString();
-        Name = in.readString();
-        ArticleNumber = in.readString();
+        Name =in.readString();
+        Image = in.readString();
     }
+
 
     public static final Creator<Mask> CREATOR = new Creator<Mask>() {
         @Override
@@ -42,6 +34,9 @@ public class Mask  implements Parcelable{
         }
     };
 
+    public int getID() {
+        return ID;
+    }
     public void setID(int ID) {
         this.ID = ID;
     }
@@ -49,8 +44,8 @@ public class Mask  implements Parcelable{
     public void setAge(int age) {
         Age = age;
     }
-    public void setKurs(int age) {
-        Kurs = age;
+    public void setKurs(int kurs) {
+        Kurs = kurs;
     }
 
     public void setSurname(String surname) {
@@ -61,10 +56,20 @@ public class Mask  implements Parcelable{
         Name = name;
     }
 
-    public void setArticleNumber(String articleNumber) {
-        ArticleNumber = articleNumber;
+    public void setImage(String image) {
+        Image = image;
     }
 
+
+
+    public Mask(int ID, int age, int kurs, String name, String surname, String image) {
+        this.ID = ID;
+        Name = name;
+        Surname = surname;
+        Age = age;
+        Kurs = kurs;
+        Image = image;
+    }
     @Override
     public int describeContents() {
         return 0;
@@ -77,30 +82,23 @@ public class Mask  implements Parcelable{
         parcel.writeInt(Age);
         parcel.writeString(Name);
         parcel.writeString(Surname);
-        parcel.writeString(ArticleNumber);
+        parcel.writeString(Image);
     }
-
-    public int getKurs2() {
-        return Kurs;
-    }
-
-    public int getAge2() {
+    public int getAge() {
         return Age;
     }
-
+    public int getKurs() {
+        return Kurs;
+    }
     public String getName() {
-
         return Name;
     }
+
     public String getSurname() {
         return Surname;
     }
-
-    public String getArticleNumber() {
-        return ArticleNumber;
+    public String getImage() {
+        return Image;
     }
 
-    public int getID() {
-        return ID;
-    }
 }

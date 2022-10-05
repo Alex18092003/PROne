@@ -8,17 +8,22 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.io.ByteArrayOutputStream;
+import java.util.List;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -31,21 +36,25 @@ public class MainActivity extends AppCompatActivity  {
     Connection connection;
     String ConnectionResult = "";
     SimpleAdapter adapter;
-    GridView list;
-    private AdapterMask pAdapter;
-    private List<Mask> listProduct = new ArrayList<>();
+    View v;
+    List<Mask> data;
+    ListView listView;
+    AdapterMask pAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListView list = (GridView) findViewById(R.id.gridViewTable);
-        pAdapter = new AdapterMask(MainActivity.this, listProduct);
-        list.setAdapter(pAdapter);
-        new GetProducts().execute();
-    }
 
+        v = findViewById(com.google.android.material.R.id.ghost_view);
+        GetTableSql(v);
+    }
+    public void enterMobile() {
+        pAdapter.notifyDataSetInvalidated();
+        listView.setAdapter(pAdapter);
+    }
 
     public  void  goAdd(View view) // переход в окно добавления новой записи, кнопка "Добавить запись"
     {
@@ -61,7 +70,9 @@ public class MainActivity extends AppCompatActivity  {
 
     public  void GetTableSql(View view) // вывод БД, кнопка "Загрузить БД"
     {
-                List <Map<String, String>> data = new ArrayList<Map<String, String>>();
+        data = new ArrayList<Mask>();
+        listView = findViewById(R.id.gridViewTable);
+        pAdapter = new AdapterMask(MainActivity.this, data);
                 try
                 {
                     ConnectionHelpers connectionHelpers = new ConnectionHelpers();
@@ -73,21 +84,20 @@ public class MainActivity extends AppCompatActivity  {
                         ResultSet resultSet = statement.executeQuery(query);
                         while (resultSet.next())
                         {
-                            Map<String, String> tab = new HashMap<String, String>();
-                            tab.put("Kod_student", resultSet.getString("Kod_student"));
-                            tab.put("Name", resultSet.getString("Name"));
-                            tab.put("Surname", resultSet.getString("Surname"));
-                            tab.put("Age", resultSet.getString("Age"));
-                            tab.put("Kurs", resultSet.getString("Kurs"));
-                            tab.put("Images", resultSet.getString("Images"));
-                            data.add(tab);
+                            Mask tempMask = new Mask
+                                    (resultSet.getInt("ID"),
+                                            resultSet.getInt("Age"),
+                                            resultSet.getInt("Kurs"),
+                                            resultSet.getString("Name"),
+                                            resultSet.getString("Surname"),
+                                            resultSet.getString("Images")
 
+                                            );
+                            data.add(tempMask);
+                            pAdapter.notifyDataSetInvalidated();
                         }
-                        String [] from = {"Kod_student", "Name", "Surname", "Age", "Kurs", "Images"};
-                        int [] to = {R.id.Kod_student, R.id.Name, R.id.Surname, R.id.Age, R.id.Kurs , R.id.imageV};
+                        connection.close();
 
-                        adapter = new SimpleAdapter(MainActivity.this, data, R.layout.gridvewtable, from, to);
-                        list.setAdapter(adapter);
 
                     }
                     else
@@ -100,12 +110,13 @@ public class MainActivity extends AppCompatActivity  {
                 {
                     Log.e("Error", ex.getMessage());
                 }
+        enterMobile();
     }
 
     public  void CleaningOfAllFields(View v) // очистка таблицы бд, кнопка "Очистить"
     {
         try {
-           list.setAdapter(null);
+            listView.setAdapter(null);
 
         }
         catch (Exception ex)
