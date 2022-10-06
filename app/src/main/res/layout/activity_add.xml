@@ -8,32 +8,20 @@
     tools:layout_editor_absoluteX="-1dp"
     tools:layout_editor_absoluteY="30dp">
 
-    <Button
-        android:id="@+id/btnAdd"
-        android:onClick="AddingDataFromSQL"
-        android:text="Добавить"
+    <ImageView
+        android:id="@+id/Picture"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.858"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.72"
-        style="@style/MyButtonStyle"/>
-
-    <Button
-        android:id="@+id/btnBack"
-        android:onClick="goBack"
-        android:text="Назад"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.155"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.72"
-        style="@style/MyButtonStyle"/>
+        app:layout_constraintVertical_bias="0.100"
+        android:src="@drawable/nophoto"/>
 
     <Button
         android:id="@+id/btnClear"
+        style="@style/MyButtonStyle"
         android:onClick="CleaningOfAllFields"
         android:text="Очистить поля"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -41,8 +29,53 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.815"
-        style="@style/MyButtonStyle"/>
+        app:layout_constraintVertical_bias="0.866" />
+
+    <Button
+        android:id="@+id/btnAdd"
+        style="@style/MyButtonStyle"
+        android:onClick="AddingDataFromSQL"
+        android:text="Добавить"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.861"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.772" />
+
+    <Button
+        android:id="@+id/btnBack"
+        style="@style/MyButtonStyle"
+        android:onClick="goBack"
+        android:text="Назад"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.156"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.772" />
+    <Button
+        android:id="@+id/btnAddd"
+        style="@style/MyButtonStyle"
+        android:onClick="onClickImage"
+        android:text="Добавить фото"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.861"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.350" />
+    <Button
+        android:id="@+id/btnDel"
+        style="@style/MyButtonStyle"
+        android:onClick="deletePicture"
+        android:text="Удалить фото"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.156"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.350" />
 
     <EditText
         android:id="@+id/etName"
@@ -55,21 +88,33 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.168"
+        app:layout_constraintVertical_bias="0.450"
         tools:ignore="MissingConstraints"></EditText>
 
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Введите данные"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etKurs"
+        app:layout_constraintVertical_bias="0.077" />
+
     <EditText
-        android:id="@+id/etSurname"
+        android:id="@+id/etKurs"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:hint="Фамилия"
+        android:hint="Курс"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.267"
+        app:layout_constraintVertical_bias="0.63"
         tools:ignore="MissingConstraints"></EditText>
 
     <EditText
@@ -83,34 +128,22 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.369"
+        app:layout_constraintVertical_bias="0.570"
         tools:ignore="MissingConstraints"></EditText>
 
     <EditText
-        android:id="@+id/etKurs"
+        android:id="@+id/etSurname"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:hint="Курс"
+        android:hint="Фамилия"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.468"
+        app:layout_constraintVertical_bias="0.510"
         tools:ignore="MissingConstraints"></EditText>
-
-    <TextView
-        android:id="@+id/status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Введите данные"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etKurs"
-        app:layout_constraintVertical_bias="0.185" />
 
     <TextView
         android:id="@+id/textView"
@@ -121,10 +154,10 @@
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.102" />
+        app:layout_constraintVertical_bias="0.040" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

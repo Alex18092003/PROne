@@ -12,7 +12,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
-        android:src="@drawable/ic_launcher_background"/>
+        android:src="@drawable/nophoto"/>
 
     <TextView
         android:id="@+id/Name"

@@ -64,10 +64,11 @@ public class AdapterMask  extends BaseAdapter{
         InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(cr, uri);
         if (input == null) {
             Resources res = context.getResources();
-            return BitmapFactory.decodeResource(res, R.drawable.ic_launcher_foreground);
+            return BitmapFactory.decodeResource(res, R.drawable.nophoto);
         }
         return BitmapFactory.decodeStream(input);
     }
+
     private Bitmap getUserImage(String encodedImg)
     {
 
@@ -76,7 +77,7 @@ public class AdapterMask  extends BaseAdapter{
             return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         }
         else
-            return BitmapFactory.decodeResource(mContext.getResources(), R.drawable.ic_launcher_foreground);
+            return BitmapFactory.decodeResource(mContext.getResources(), R.drawable.nophoto);
     }
 
     @Override
