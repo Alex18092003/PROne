@@ -27,10 +27,10 @@ import java.util.Base64;
 public class editingg extends AppCompatActivity {
 
     EditText Kod, Name, Surname, Age, Kurs;
-    ImageView imageView;
+    ImageView Picture;
     Connection connection;
     String ConnectionResult = "";
-    TextView st, txstatus;
+    TextView st;
     Mask mask;
     View v;
     String img="";
@@ -41,37 +41,22 @@ public class editingg extends AppCompatActivity {
         setContentView(R.layout.activity_editingg);
 
         mask=getIntent().getParcelableExtra("Student");
-        Kod = (EditText) findViewById(R.id.etKod);
         Name = (EditText) findViewById(R.id.etName);
+        Name.setText(mask.getName());
         Surname = (EditText) findViewById(R.id.etSurname);
+        Surname.setText(mask.getSurname());
         Age = (EditText) findViewById(R.id.etAge);
+        Age.setText(mask.getAge());
         Kurs = (EditText) findViewById(R.id.etKurs);
-        st = (TextView) findViewById(R.id.st);
-        txstatus = (TextView) findViewById(R.id.txstatus);
-        imageView=findViewById(R.id.imag);
+        Kurs.setText(mask.getKurs());
+
+        Picture=findViewById(R.id.Picture);
+        Kurs.setText(mask.getImages());
         v =findViewById(com.google.android.material.R.id.ghost_view);
 
-        GetData(v);
     }
 
-    private Bitmap getImgBitmap(String encodedImg) {
-        if (encodedImg != null) {
-            byte[] bytes = new byte[0];
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                bytes = Base64.getDecoder().decode(encodedImg);
-            }
-            return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        }
-        return BitmapFactory.decodeResource(editingg.this.getResources(),
-                R.drawable.ic_launcher_foreground);
-    }
-
-    public void onClickChooseImage(View view)
-    {
-        getImage();
-
-    }
-    private void getImage()
+    public void onClickImage(View view)
     {
         Intent intentChooser= new Intent();
         intentChooser.setType("image/*");
@@ -87,56 +72,50 @@ public class editingg extends AppCompatActivity {
             if(resultCode==RESULT_OK)
             {
                 Log.d("MyLog","Image URI : "+data.getData());
-                imageView.setImageURI(data.getData());
-                Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-                encodeImage(bitmap);
+                Picture.setImageURI(data.getData());
+                Bitmap bitmap = ((BitmapDrawable)Picture.getDrawable()).getBitmap();
+                encodeImg(bitmap);
 
             }
         }
     }
 
-    private String encodeImage(Bitmap bitmap) {
-        int prevW = 150;
-        int prevH = bitmap.getHeight() * prevW / bitmap.getWidth();
-        Bitmap b = Bitmap.createScaledBitmap(bitmap, prevW, prevH, false);
+    public String encodeImg(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        b.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
-        byte[] bytes = byteArrayOutputStream.toByteArray();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        byte[] b = byteArrayOutputStream.toByteArray();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            img=Base64.getEncoder().encodeToString(bytes);
+            img= Base64.getEncoder().encodeToString(b);
             return img;
         }
         return "";
     }
 
 
+
+
     public  void ChangingData(View view) // редактирование данных в бд, кнопка "Сохранить изменения"
     {
-        try {
-            ConnectionHelpers connectionHelpers = new ConnectionHelpers();
-            connection = connectionHelpers.connectionClass();
-            if (connection !=null)
-            {
-                String query = "UPDATE Student SET Name = '"+Name.getText().toString()+"' , Surname = '"+Surname.getText().toString()+"', Age = '"+Age.getText().toString()+"', Kurs = '"+Kurs.getText().toString()+"' where Kod_student = '"+Kod.getText().toString()+"'";
-                Statement statement = connection.createStatement();
-                //ResultSet resultSet = statement.executeQuery(query);
-                statement.executeUpdate(query);
-                st.setText("Успешное изменение записи");
-                txstatus.setText("Введите код студента, чтобы получить данные о нём");
-                Kod.setText("");
-                Name.setText("");
-                Surname.setText("");
-                Age.setText("");
-                Kurs.setText("");
-            }
-            else
-            {
-                ConnectionResult="Check Connection";
-            }
-        }
-        catch (Exception ex)
+        if(Name.getText().length() == 0 || Surname.getText().length() == 0 || Age.getText().length() == 0|| Kurs.getText().length() == 0)
         {
-            Log.e("Error", ex.getMessage());
+            st.setText("Все поля должны быть заполнены");
+            return;
+        }
+        else {
+            try {
+                ConnectionHelpers connectionHelpers = new ConnectionHelpers();
+                connection = connectionHelpers.connectionClass();
+                if (connection != null) {
+                    String query = "UPDATE Student SET Name = '" + Name.getText().toString() + "' , Surname = '" + Surname.getText().toString() + "', Age = '" + Age.getText().toString() + "', Kurs = '" + Kurs.getText().toString() + "' , Images = '" + img + "' where Kod_student = '" + mask.getID() + "'";
+                    Statement statement = connection.createStatement();
+                    statement.executeUpdate(query);
+                    st.setText("Успешное изменение записи");
+                } else {
+                    ConnectionResult = "Check Connection";
+                }
+            } catch (Exception ex) {
+                Log.e("Error", ex.getMessage());
+            }
         }
     }
 
@@ -147,16 +126,16 @@ public class editingg extends AppCompatActivity {
             connection = connectionHelpers.connectionClass();
             if (connection !=null)
             {
-                String query = "Delete From Student where Kod_student = '"+Kod.getText()+"' ";
+                String query = "Delete From Student where Kod_student = '"+mask.getID()+"' ";
                 Statement statement = connection.createStatement();
                 statement.executeUpdate(query);
-                txstatus.setText("Успешное удаление записи");
                 Kod.setText("");
                 Name.setText("");
                 Surname.setText("");
                 Age.setText("");
                 Kurs.setText("");
-                st.setText("Введите код студента, чтобы получить данные о нём");
+                Picture.setImageResource(R.drawable.nophoto);
+                st.setText("Успешное удаление всех данных");
 
             }
             else
@@ -170,39 +149,12 @@ public class editingg extends AppCompatActivity {
         }
     }
 
-    public  void GetData(View view) // получение данных по их коду, кнопка "Получить"
+    public void deletePicture(View v)
     {
-        try {
-            ConnectionHelpers connectionHelpers = new ConnectionHelpers();
-            connection = connectionHelpers.connectionClass();
-            if (connection !=null)
-            {
-                String query = "Select * From Student where Kod_student = '" + Kod.getText().toString() + "' ";
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(query);
-                while (resultSet.next())
-                {
-                    Name.setText(resultSet.getString(2));
-                    Surname.setText(resultSet.getString(3));
-                    Age.setText(resultSet.getString(4));
-                   Kurs.setText(resultSet.getString(5));
-
-                }
-                st.setText("Успешное получение данных");
-                txstatus.setText("...");
-
-            }
-            else
-            {
-                ConnectionResult="Check Connection";
-            }
-        }
-        catch (Exception ex)
-        {
-            Log.e("Error", ex.getMessage());
-        }
+        ImageView Picture = (ImageView) findViewById(R.id.Picture);
+        Picture.setImageBitmap(null);
+        Picture.setImageResource(R.drawable.nophoto);
     }
-
 
     public  void  goBack(View view) // выход в главное меню, кнопка "Назад"
     {

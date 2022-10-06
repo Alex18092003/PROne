@@ -1,6 +1,7 @@
 package com.example.prone;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,12 +36,11 @@ public class MainActivity extends AppCompatActivity  {
 
     Connection connection;
     String ConnectionResult = "";
-    SimpleAdapter adapter;
     View v;
     List<Mask> data;
     ListView listView;
     AdapterMask pAdapter;
-
+    Context nContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,11 @@ public class MainActivity extends AppCompatActivity  {
         v = findViewById(com.google.android.material.R.id.ghost_view);
         GetTableSql(v);
 
+
     }
+
+
+
     public void enterMobile() {
         pAdapter.notifyDataSetInvalidated();
         listView.setAdapter(pAdapter);
@@ -63,13 +67,9 @@ public class MainActivity extends AppCompatActivity  {
     startActivity(intent);
     }
 
-    public  void goEditing(View view) // переход в окно редактирования данных, кнопка "Редактировать"
-    {
-        Intent intent = new Intent(this, editingg.class);
-        startActivity(intent);
-    }
 
-    public  void GetTableSql(View view) // вывод БД, кнопка "Загрузить БД"
+
+    public  void GetTableSql(View view) // вывод БД
     {
         data = new ArrayList<Mask>();
         listView = findViewById(R.id.gridViewTable);
@@ -98,33 +98,17 @@ public class MainActivity extends AppCompatActivity  {
                             pAdapter.notifyDataSetInvalidated();
                         }
                         connection.close();
-
-
                     }
                     else
                     {
                         ConnectionResult="Check Connection";
                     }
-
                 }
                 catch (Exception ex)
                 {
                     Log.e("Error", ex.getMessage());
                 }
         enterMobile();
-    }
-
-    public  void CleaningOfAllFields(View v) // очистка таблицы бд, кнопка "Очистить"
-    {
-        try {
-            listView.setAdapter(null);
-
-        }
-        catch (Exception ex)
-        {
-            Log.e("Error", ex.getMessage());
-        }
-
     }
 
 }

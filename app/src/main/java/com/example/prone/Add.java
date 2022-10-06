@@ -38,10 +38,8 @@ public class Add extends AppCompatActivity {
     ImageView Picture;
     Connection connection;
     String ConnectionResult = "";
-    AdapterMask pAdapter;
-    ListView listView;
     String img="";
-    private Context mContext;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +63,11 @@ public class Add extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==1 && data!= null && data.getData()!= null)
+    protected void onActivityResult(int request, int result, @Nullable Intent data) {
+        super.onActivityResult(request, result, data);
+        if(request==1 && data!= null && data.getData()!= null)
         {
-            if(resultCode==RESULT_OK)
+            if(result==RESULT_OK)
             {
                 Log.d("MyLog","Image URI : "+data.getData());
                 Picture.setImageURI(data.getData());
@@ -101,8 +99,6 @@ public class Add extends AppCompatActivity {
         }
         else {
             try {
-
-
                 ConnectionHelpers connectionHelpers = new ConnectionHelpers();
                 connection = connectionHelpers.connectionClass();
                 if (connection != null) {
@@ -143,7 +139,6 @@ public class Add extends AppCompatActivity {
 
     public void deletePicture(View v)
     {
-        ImageView Picture = (ImageView) findViewById(R.id.Picture);
         Picture.setImageBitmap(null);
         Picture.setImageResource(R.drawable.nophoto);
     }
