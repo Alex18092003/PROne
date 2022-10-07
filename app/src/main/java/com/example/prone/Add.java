@@ -38,7 +38,9 @@ public class Add extends AppCompatActivity {
     ImageView Picture;
     Connection connection;
     String ConnectionResult = "";
-    String img="";
+    String img=null;
+    ListView listView;
+    AdapterMask pAdapter;
 
 
     @Override
@@ -54,41 +56,41 @@ public class Add extends AppCompatActivity {
         Picture = (ImageView) findViewById(R.id.Picture);
     }
 
-    public void onClickImage(View view)
-    {
-        Intent intentChooser= new Intent();
-        intentChooser.setType("image/*");
-        intentChooser.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intentChooser,1);
-    }
+
 
     @Override
     protected void onActivityResult(int request, int result, @Nullable Intent data) {
-        super.onActivityResult(request, result, data);
-        if(request==1 && data!= null && data.getData()!= null)
-        {
-            if(result==RESULT_OK)
-            {
-                Log.d("MyLog","Image URI : "+data.getData());
-                Picture.setImageURI(data.getData());
-                Bitmap bitmap = ((BitmapDrawable)Picture.getDrawable()).getBitmap();
-                encodeImg(bitmap);
+        try {
+            super.onActivityResult(request, result, data);
+            if (request == 1 && data != null && data.getData() != null) {
+                if (result == RESULT_OK) {
+                    Log.d("MyLog", "Image URI : " + data.getData());
+                    Picture.setImageURI(data.getData());
+                    Bitmap bitmap = ((BitmapDrawable) Picture.getDrawable()).getBitmap();
+                    encodeImg(bitmap);
 
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            Toast.makeText(Add.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
         }
     }
 
     public String encodeImg(Bitmap bitmap) {
 
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        byte[] b = byteArrayOutputStream.toByteArray();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            img= Base64.getEncoder().encodeToString(b);
-            return img;
-        }
-        return "";
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            byte[] b = byteArrayOutputStream.toByteArray();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                img = Base64.getEncoder().encodeToString(b);
+                return img;
+            }
+            return "";
+
     }
+
 
     public void AddingDataFromSQL(View v) // добавление новой записи в БД, кнопка "Добавить"
     {
@@ -106,16 +108,19 @@ public class Add extends AppCompatActivity {
                     Statement statement = connection.createStatement();
                     //ResultSet resultSet = statement.executeQuery(query);
                     statement.executeUpdate(query);
-                    status.setText("Успешное добаление новых записи");
+                    status.setText("Успешное добаление новой записи");
 
                 } else {
                     ConnectionResult = "Check Connection";
                 }
 
 
-            } catch (Exception ex) {
-                Log.e("Error", ex.getMessage());
             }
+            catch (Exception ex)
+            {
+                Toast.makeText(Add.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
+            }
+
         }
     }
 
@@ -132,20 +137,50 @@ public class Add extends AppCompatActivity {
         }
         catch (Exception ex)
         {
-            Log.e("Error", ex.getMessage());
+            Toast.makeText(Add.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
         }
 
     }
 
-    public void deletePicture(View v)
+    public void onClickImage(View view) //добавление картинки
     {
-        Picture.setImageBitmap(null);
-        Picture.setImageResource(R.drawable.nophoto);
+        try {
+            Intent intentChooser = new Intent();
+            intentChooser.setType("image/*");
+            intentChooser.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(intentChooser, 1);
+        }
+        catch (Exception ex)
+        {
+            Toast.makeText(Add.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    public void deletePicture(View v) // удаление изображения, кнопка "Удалить фото"
+    {
+        try {
+            Picture.setImageBitmap(null);
+            Picture.setImageResource(R.drawable.nophoto);
+            img = null;
+        }
+        catch (Exception ex)
+        {
+            Toast.makeText(Add.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     public  void  goBack(View view) // выход в главное меню, кнопка "Назад"
     {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        try {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+        catch (Exception ex)
+        {
+            Toast.makeText(Add.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
+        }
+
     }
 }

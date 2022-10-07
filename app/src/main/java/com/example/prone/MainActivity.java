@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity  {
                                             resultSet.getString("Name"),
                                             resultSet.getString("Surname"),
                                             resultSet.getString("Images")
-
                                             );
                             data.add(tempMask);
                             pAdapter.notifyDataSetInvalidated();

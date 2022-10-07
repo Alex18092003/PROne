@@ -22,6 +22,9 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.Base64;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 
 public class editingg extends AppCompatActivity {
@@ -34,26 +37,39 @@ public class editingg extends AppCompatActivity {
     Mask mask;
     View v;
     String img="";
+    Integer index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editingg);
 
-        mask=getIntent().getParcelableExtra("Student");
-        Name = (EditText) findViewById(R.id.etName);
-        Name.setText(mask.getName());
-        Surname = (EditText) findViewById(R.id.etSurname);
-        Surname.setText(mask.getSurname());
-        Age = (EditText) findViewById(R.id.etAge);
-        Age.setText(mask.getAge());
-        Kurs = (EditText) findViewById(R.id.etKurs);
-        Kurs.setText(mask.getKurs());
-
+        st = findViewById(R.id.txstatus);
+        Name =  findViewById(R.id.etName);
+        Surname =  findViewById(R.id.etSurname);
+        Age =  findViewById(R.id.etAge);
+        Kurs =  findViewById(R.id.etKurs);
         Picture=findViewById(R.id.Picture);
-        Kurs.setText(mask.getImages());
-        v =findViewById(com.google.android.material.R.id.ghost_view);
+        GetData();
 
+    }
+    public void GetData()
+    {
+        try
+        {
+            mask=getIntent().getParcelableExtra("Student");
+            Name.setText(mask.getName());
+            Surname.setText(mask.getSurname());
+            Age.setText(Integer.toString(mask.getAge()));
+            Kurs.setText(Integer.toString(mask.getKurs()));
+            Picture.setImageBitmap(toBip(mask.getImages()));
+
+
+        }
+        catch (Exception ex)
+        {
+            Log.e("Error", ex.getMessage());
+        }
     }
 
     public void onClickImage(View view)
@@ -74,13 +90,13 @@ public class editingg extends AppCompatActivity {
                 Log.d("MyLog","Image URI : "+data.getData());
                 Picture.setImageURI(data.getData());
                 Bitmap bitmap = ((BitmapDrawable)Picture.getDrawable()).getBitmap();
-                encodeImg(bitmap);
+                toStr(bitmap);
 
             }
         }
     }
 
-    public String encodeImg(Bitmap bitmap) {
+    public String toStr(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         byte[] b = byteArrayOutputStream.toByteArray();
@@ -92,6 +108,20 @@ public class editingg extends AppCompatActivity {
     }
 
 
+    public Bitmap toBip(String encodedImg)
+    {
+        if (encodedImg != null && !encodedImg.equals("null")) {
+            byte[] bytes = new byte[0];
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                bytes = Base64.getDecoder().decode(encodedImg);
+            }
+            return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        }
+        return BitmapFactory.decodeResource(editingg.this.getResources(),
+                R.drawable.nophoto);
+
+
+    }
 
 
     public  void ChangingData(View view) // редактирование данных в бд, кнопка "Сохранить изменения"
@@ -147,15 +177,15 @@ public class editingg extends AppCompatActivity {
         {
             Log.e("Error", ex.getMessage());
         }
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     public void deletePicture(View v)
     {
-        ImageView Picture = (ImageView) findViewById(R.id.Picture);
         Picture.setImageBitmap(null);
         Picture.setImageResource(R.drawable.nophoto);
     }
-
     public  void  goBack(View view) // выход в главное меню, кнопка "Назад"
     {
         Intent intent = new Intent(this, MainActivity.class);

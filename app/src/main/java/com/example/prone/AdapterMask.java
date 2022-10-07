@@ -27,10 +27,13 @@ public class AdapterMask  extends BaseAdapter{
     private OnItemClickListener mListener;
     String img="";
 
-
-
-
-
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+    public void setOnItemClickListener(OnItemClickListener listener)
+    {
+        mListener=listener;
+    }
     public AdapterMask(Context mContext, List<Mask> maskList) {
         this.mContext = mContext;
         this.maskList = maskList;
@@ -55,11 +58,18 @@ public class AdapterMask  extends BaseAdapter{
         return maskList.get(i).getID();
     }
 
+    public static Bitmap loadContactPhoto(ContentResolver cr, long id, Context context) {
+        Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, id);
+        InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(cr, uri);
+        if (input == null) {
+            Resources res = context.getResources();
+            return BitmapFactory.decodeResource(res, R.drawable.nophoto);
+        }
+        return BitmapFactory.decodeStream(input);
+    }
 
-
-    private Bitmap getUserImage(String encodedImg)
+    public Bitmap getUserImage(String encodedImg)
     {
-
         if(encodedImg!=null&& !encodedImg.equals("null")) {
             byte[] bytes = Base64.decode(encodedImg, Base64.DEFAULT);
             return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
@@ -67,13 +77,8 @@ public class AdapterMask  extends BaseAdapter{
         else
             return BitmapFactory.decodeResource(mContext.getResources(), R.drawable.nophoto);
     }
-    public interface OnItemClickListener{
-        void onItemClick(int position);
-    }
-    public void setOnItemClickListener(OnItemClickListener listener)
-    {
-        mListener=listener;
-    }
+
+
 
     @Override
     public View getView(int p, View convertView, ViewGroup parent)
