@@ -70,7 +70,7 @@ public class AdapterMask  extends BaseAdapter{
 
     public Bitmap getUserImage(String encodedImg)
     {
-        if(encodedImg!=null&& !encodedImg.equals("null")) {
+        if(encodedImg!=null && !encodedImg.equals("null")) {
             byte[] bytes = Base64.decode(encodedImg, Base64.DEFAULT);
             return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         }

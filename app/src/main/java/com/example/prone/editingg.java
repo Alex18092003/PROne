@@ -25,6 +25,7 @@ import java.util.Base64;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class editingg extends AppCompatActivity {
@@ -36,7 +37,7 @@ public class editingg extends AppCompatActivity {
     TextView st;
     Mask mask;
     View v;
-    String img="";
+    String img=null;
     Integer index;
 
     @Override
@@ -51,12 +52,22 @@ public class editingg extends AppCompatActivity {
         Kurs =  findViewById(R.id.etKurs);
         Picture=findViewById(R.id.Picture);
         GetData();
+        v =findViewById(com.google.android.material.R.id.ghost_view);
+
+
 
     }
     public void GetData()
     {
         try
         {
+            st = findViewById(R.id.txstatus);
+            Name =  findViewById(R.id.etName);
+            Surname =  findViewById(R.id.etSurname);
+            Age =  findViewById(R.id.etAge);
+            Kurs =  findViewById(R.id.etKurs);
+            Picture=findViewById(R.id.Picture);
+
             mask=getIntent().getParcelableExtra("Student");
             Name.setText(mask.getName());
             Surname.setText(mask.getSurname());
@@ -74,53 +85,62 @@ public class editingg extends AppCompatActivity {
 
     public void onClickImage(View view)
     {
-        Intent intentChooser= new Intent();
-        intentChooser.setType("image/*");
-        intentChooser.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intentChooser,1);
+        try {
+            Intent intentChooser = new Intent();
+            intentChooser.setType("image/*");
+            intentChooser.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(intentChooser, 1);
+        }
+        catch (Exception ex)
+        {
+            Toast.makeText(editingg.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==1 && data!= null && data.getData()!= null)
-        {
-            if(resultCode==RESULT_OK)
-            {
-                Log.d("MyLog","Image URI : "+data.getData());
-                Picture.setImageURI(data.getData());
-                Bitmap bitmap = ((BitmapDrawable)Picture.getDrawable()).getBitmap();
-                toStr(bitmap);
+        try {
+            super.onActivityResult(requestCode, resultCode, data);
+            if (requestCode == 1 && data != null && data.getData() != null) {
+                if (resultCode == RESULT_OK) {
+                    Log.d("MyLog", "Image URI : " + data.getData());
+                    Picture.setImageURI(data.getData());
+                    Bitmap bitmap = ((BitmapDrawable) Picture.getDrawable()).getBitmap();
+                    toStr(bitmap);
 
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            Toast.makeText(editingg.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
         }
     }
 
     public String toStr(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        byte[] b = byteArrayOutputStream.toByteArray();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            img= Base64.getEncoder().encodeToString(b);
-            return img;
-        }
-        return "";
+
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            byte[] b = byteArrayOutputStream.toByteArray();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                img = Base64.getEncoder().encodeToString(b);
+                return img;
+            }
+            return "";
     }
 
 
     public Bitmap toBip(String encodedImg)
     {
-        if (encodedImg != null && !encodedImg.equals("null")) {
-            byte[] bytes = new byte[0];
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                bytes = Base64.getDecoder().decode(encodedImg);
+            if (encodedImg != null && !encodedImg.equals("null")) {
+                byte[] bytes = new byte[0];
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    bytes = Base64.getDecoder().decode(encodedImg);
+                }
+                return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
             }
-            return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        }
-        return BitmapFactory.decodeResource(editingg.this.getResources(),
-                R.drawable.nophoto);
-
-
+            return BitmapFactory.decodeResource(editingg.this.getResources(),
+                    R.drawable.nophoto);
     }
 
 
@@ -139,13 +159,17 @@ public class editingg extends AppCompatActivity {
                     String query = "UPDATE Student SET Name = '" + Name.getText().toString() + "' , Surname = '" + Surname.getText().toString() + "', Age = '" + Age.getText().toString() + "', Kurs = '" + Kurs.getText().toString() + "' , Images = '" + img + "' where Kod_student = '" + mask.getID() + "'";
                     Statement statement = connection.createStatement();
                     statement.executeUpdate(query);
-                    st.setText("Успешное изменение записи");
+                    Toast.makeText(editingg.this,"Успешное изменение записи", Toast.LENGTH_LONG).show();
+
                 } else {
                     ConnectionResult = "Check Connection";
                 }
-            } catch (Exception ex) {
-                Log.e("Error", ex.getMessage());
+            } catch (Exception ex)
+            {
+                Toast.makeText(editingg.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
             }
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -159,13 +183,7 @@ public class editingg extends AppCompatActivity {
                 String query = "Delete From Student where Kod_student = '"+mask.getID()+"' ";
                 Statement statement = connection.createStatement();
                 statement.executeUpdate(query);
-                Kod.setText("");
-                Name.setText("");
-                Surname.setText("");
-                Age.setText("");
-                Kurs.setText("");
-                Picture.setImageResource(R.drawable.nophoto);
-                st.setText("Успешное удаление всех данных");
+                Toast.makeText(editingg.this,"Успешное удаление всех данных", Toast.LENGTH_LONG).show();
 
             }
             else
@@ -175,7 +193,7 @@ public class editingg extends AppCompatActivity {
         }
         catch (Exception ex)
         {
-            Log.e("Error", ex.getMessage());
+            Toast.makeText(editingg.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
         }
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -183,13 +201,25 @@ public class editingg extends AppCompatActivity {
 
     public void deletePicture(View v)
     {
-        Picture.setImageBitmap(null);
-        Picture.setImageResource(R.drawable.nophoto);
+        try {
+            Picture.setImageBitmap(null);
+            Picture.setImageResource(R.drawable.nophoto);
+        }
+        catch (Exception ex)
+        {
+            Toast.makeText(editingg.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
+        }
     }
     public  void  goBack(View view) // выход в главное меню, кнопка "Назад"
     {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        try {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        } catch (Exception ex)
+        {
+            Toast.makeText(editingg.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
+        }
+
     }
 
 }

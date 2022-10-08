@@ -39,8 +39,7 @@ public class Add extends AppCompatActivity {
     Connection connection;
     String ConnectionResult = "";
     String img=null;
-    ListView listView;
-    AdapterMask pAdapter;
+
 
 
     @Override
@@ -108,7 +107,7 @@ public class Add extends AppCompatActivity {
                     Statement statement = connection.createStatement();
                     //ResultSet resultSet = statement.executeQuery(query);
                     statement.executeUpdate(query);
-                    status.setText("Успешное добаление новой записи");
+                    status.setText("Успешное добавление новой записи");
 
                 } else {
                     ConnectionResult = "Check Connection";
