@@ -79,7 +79,7 @@ public class editingg extends AppCompatActivity {
         }
         catch (Exception ex)
         {
-            Log.e("Error", ex.getMessage());
+            Toast.makeText(editingg.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
         }
     }
 

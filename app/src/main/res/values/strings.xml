@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">PROne</string>
-    <string-array name="sp">
-<item>Сортировать по именам</item>
-        <item>Сортировать по возрасту</item>
-    </string-array>
+
+    <!--<string name="st">Выберите сортировку</string>-->
+
+
+
+
+
 </resources>

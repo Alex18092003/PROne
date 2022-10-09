@@ -133,6 +133,7 @@ public class Add extends AppCompatActivity {
             Kurs.setText("");
             status.setText("Введите данные");
             Picture.setImageResource(R.drawable.nophoto);
+            img = null;
         }
         catch (Exception ex)
         {

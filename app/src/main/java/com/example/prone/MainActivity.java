@@ -1,16 +1,20 @@
 package com.example.prone;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -43,7 +47,6 @@ public class MainActivity extends AppCompatActivity  {
     List<Mask> data;
     ListView listView;
     AdapterMask pAdapter;
-    Context nContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,53 +56,219 @@ public class MainActivity extends AppCompatActivity  {
 
         v = findViewById(com.google.android.material.R.id.ghost_view);
         GetTableSql(v);
-        setupSort();
+        Sort();
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+            getMenuInflater().inflate(R.menu.menu, menu);
+            MenuItem menuItem = menu.findItem(R.id.action);
+            SearchView searchView = (SearchView) menuItem.getActionView();
 
-public  void  setupSort()
-{
-    ArrayAdapter<CharSequence> adapter =ArrayAdapter.createFromResource(this,R.array.sp, android.R.layout.simple_spinner_item);
-    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    spinner=findViewById(R.id.Spinner);
-    spinner.setAdapter(adapter);
-
-
-    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-           if(position == 0)
-           {
-               sortByName();
-           }
-           else
-           {
-               sortByAge();
-           }
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+                    data = new ArrayList<Mask>();
+        listView = findViewById(R.id.gridViewTable);
+        pAdapter = new AdapterMask(MainActivity.this, data);
+        try {
+            String query="";
+            ConnectionHelpers connectionHelpers = new ConnectionHelpers();
+            connection = connectionHelpers.connectionClass();
+            if (connection != null) {
+                query = "Select * From Student WHERE Surname like'%"+s+"%'";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                while (resultSet.next()) {
+                    Mask tempMask = new Mask
+                            (resultSet.getInt("Kod_student"),
+                                    Integer.parseInt(resultSet.getString("Age")),
+                                    Integer.parseInt(resultSet.getString("Kurs")),
+                                    resultSet.getString("Name"),
+                                    resultSet.getString("Surname"),
+                                    resultSet.getString("Images"));
+                    data.add(tempMask);
+                    pAdapter.notifyDataSetInvalidated();
+                }
+                connection.close();
+            }
+            else {
+                ConnectionResult="Check Connection";
+            }
         }
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-
+        catch (Exception ex)
+        {
+            Toast.makeText(MainActivity.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
         }
+        enterMobile();
+                    return false;
+                }
 
-    });
-}
+                @Override
+                public boolean onQueryTextChange(String s1) {
 
-public  void  sortByName()
-{
-String s = null;
-s = "Select * From Student ORDER BY Name";
-    selectSort(s);
-}
+                    data = new ArrayList<Mask>();
+        listView = findViewById(R.id.gridViewTable);
+        pAdapter = new AdapterMask(MainActivity.this, data);
+        try {
+            String query="";
+            ConnectionHelpers connectionHelpers = new ConnectionHelpers();
+            connection = connectionHelpers.connectionClass();
+            if (connection != null) {
+                query = "Select * From Student WHERE Surname like'%"+s1+"%'";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                while (resultSet.next()) {
+                    Mask tempMask = new Mask
+                            (resultSet.getInt("Kod_student"),
+                                    Integer.parseInt(resultSet.getString("Age")),
+                                    Integer.parseInt(resultSet.getString("Kurs")),
+                                    resultSet.getString("Name"),
+                                    resultSet.getString("Surname"),
+                                    resultSet.getString("Images"));
+                    data.add(tempMask);
+                    pAdapter.notifyDataSetInvalidated();
+                }
+                connection.close();
+            }
+            else {
+                ConnectionResult="Check Connection";
+            }
+        }
+        catch (Exception ex)
+        {
+            Toast.makeText(MainActivity.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
+        }
+        enterMobile();
+                    return false;
+                }
+            });
+            return super.onCreateOptionsMenu(menu);
 
-    public  void  sortByAge()
+    }
+
+//    public  void  Search(String st)
+//    {
+//        data = new ArrayList<Mask>();
+//        listView = findViewById(R.id.gridViewTable);
+//        pAdapter = new AdapterMask(MainActivity.this, data);
+//        try {
+//            String query="";
+//            ConnectionHelpers connectionHelpers = new ConnectionHelpers();
+//            connection = connectionHelpers.connectionClass();
+//            if (connection != null) {
+//                query = "Select * From Student WHERE Surname like'%"+st+"%'";
+//                Statement statement = connection.createStatement();
+//                ResultSet resultSet = statement.executeQuery(query);
+//                while (resultSet.next()) {
+//                    Mask tempMask = new Mask
+//                            (resultSet.getInt("Kod_student"),
+//                                    Integer.parseInt(resultSet.getString("Age")),
+//                                    Integer.parseInt(resultSet.getString("Kurs")),
+//                                    resultSet.getString("Name"),
+//                                    resultSet.getString("Surname"),
+//                                    resultSet.getString("Images"));
+//                    data.add(tempMask);
+//                    pAdapter.notifyDataSetInvalidated();
+//                }
+//                connection.close();
+//            }
+//            else {
+//                ConnectionResult="Check Connection";
+//            }
+//        }
+//        catch (Exception ex)
+//        {
+//            Toast.makeText(MainActivity.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
+//        }
+//        enterMobile();
+//    }
+
+    public void Sort() //сортировка
     {
-        String s = null;
-        s = "Select * From Student ORDER BY Age";
+        try {
+            spinner = findViewById(R.id.Spinner);
+            List<String> list = new ArrayList<String>();
+            list.add("Без фильтра");
+            list.add("Сортировка по именам");
+            list.add("Сортировка по возрастанию возрасту");
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(dataAdapter);
+            String s = null;
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                    switch (position) {
+                        case 0: {
+                            sortByBez(s);
+
+                        }
+                        break;
+                        case 1: {
+                            sortByName(s);
+
+                        }
+                        break;
+                        case 2: {
+                            sortByAge(s);
+                        }
+                        break;
+                    }
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+
+            });
+        }
+        catch (Exception ex)
+        {
+            Toast.makeText(MainActivity.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    public  void  sortByBez(String s) //запрос на сортировку
+    {
+        try {
+            s = "Select * From Student";
+            selectSort(s);
+        }
+        catch (Exception ex)
+        {
+            Toast.makeText(MainActivity.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
+        }
+    }
+public  void  sortByName(String s)//запрос на сортировку
+{
+    try {
+        s = "Select * From Student ORDER BY Name";
         selectSort(s);
     }
-    public  void  selectSort(String s)
+    catch (Exception ex)
+    {
+        Toast.makeText(MainActivity.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
+    }
+}
+
+    public  void  sortByAge(String s)//запрос на сортировку
+    {
+        try {
+            s = "Select * From Student ORDER BY Age";
+            selectSort(s);
+        }
+        catch (Exception ex)
+        {
+            Toast.makeText(MainActivity.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public  void  selectSort(String s)//вывод сортировки
     {
         data = new ArrayList<Mask>();
         listView = findViewById(R.id.gridViewTable);
@@ -142,9 +311,6 @@ s = "Select * From Student ORDER BY Name";
 
 
 
-
-
-
     public void enterMobile() {
         pAdapter.notifyDataSetInvalidated();
         listView.setAdapter(pAdapter);
@@ -152,8 +318,14 @@ s = "Select * From Student ORDER BY Name";
 
     public  void  goAdd(View view) // переход в окно добавления новой записи, кнопка "Добавить запись"
     {
-    Intent intent = new Intent(this, Add.class);
-    startActivity(intent);
+        try {
+            Intent intent = new Intent(this, Add.class);
+            startActivity(intent);
+        }
+        catch (Exception ex)
+        {
+            Toast.makeText(MainActivity.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
+        }
     }
 
 
