@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,6 +23,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuItemCompat;
+
 import android.widget.Toast;
 
 import java.sql.Connection;
@@ -48,6 +51,8 @@ public class MainActivity extends AppCompatActivity  {
     ListView listView;
     AdapterMask pAdapter;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,130 +65,7 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-            getMenuInflater().inflate(R.menu.menu, menu);
-            MenuItem menuItem = menu.findItem(R.id.action);
-            SearchView searchView = (SearchView) menuItem.getActionView();
 
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String s) {
-                    data = new ArrayList<Mask>();
-        listView = findViewById(R.id.gridViewTable);
-        pAdapter = new AdapterMask(MainActivity.this, data);
-        try {
-            String query="";
-            ConnectionHelpers connectionHelpers = new ConnectionHelpers();
-            connection = connectionHelpers.connectionClass();
-            if (connection != null) {
-                query = "Select * From Student WHERE Surname like'%"+s+"%'";
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(query);
-                while (resultSet.next()) {
-                    Mask tempMask = new Mask
-                            (resultSet.getInt("Kod_student"),
-                                    Integer.parseInt(resultSet.getString("Age")),
-                                    Integer.parseInt(resultSet.getString("Kurs")),
-                                    resultSet.getString("Name"),
-                                    resultSet.getString("Surname"),
-                                    resultSet.getString("Images"));
-                    data.add(tempMask);
-                    pAdapter.notifyDataSetInvalidated();
-                }
-                connection.close();
-            }
-            else {
-                ConnectionResult="Check Connection";
-            }
-        }
-        catch (Exception ex)
-        {
-            Toast.makeText(MainActivity.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
-        }
-        enterMobile();
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String s1) {
-
-                    data = new ArrayList<Mask>();
-        listView = findViewById(R.id.gridViewTable);
-        pAdapter = new AdapterMask(MainActivity.this, data);
-        try {
-            String query="";
-            ConnectionHelpers connectionHelpers = new ConnectionHelpers();
-            connection = connectionHelpers.connectionClass();
-            if (connection != null) {
-                query = "Select * From Student WHERE Surname like'%"+s1+"%'";
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(query);
-                while (resultSet.next()) {
-                    Mask tempMask = new Mask
-                            (resultSet.getInt("Kod_student"),
-                                    Integer.parseInt(resultSet.getString("Age")),
-                                    Integer.parseInt(resultSet.getString("Kurs")),
-                                    resultSet.getString("Name"),
-                                    resultSet.getString("Surname"),
-                                    resultSet.getString("Images"));
-                    data.add(tempMask);
-                    pAdapter.notifyDataSetInvalidated();
-                }
-                connection.close();
-            }
-            else {
-                ConnectionResult="Check Connection";
-            }
-        }
-        catch (Exception ex)
-        {
-            Toast.makeText(MainActivity.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
-        }
-        enterMobile();
-                    return false;
-                }
-            });
-            return super.onCreateOptionsMenu(menu);
-
-    }
-
-//    public  void  Search(String st)
-//    {
-//        data = new ArrayList<Mask>();
-//        listView = findViewById(R.id.gridViewTable);
-//        pAdapter = new AdapterMask(MainActivity.this, data);
-//        try {
-//            String query="";
-//            ConnectionHelpers connectionHelpers = new ConnectionHelpers();
-//            connection = connectionHelpers.connectionClass();
-//            if (connection != null) {
-//                query = "Select * From Student WHERE Surname like'%"+st+"%'";
-//                Statement statement = connection.createStatement();
-//                ResultSet resultSet = statement.executeQuery(query);
-//                while (resultSet.next()) {
-//                    Mask tempMask = new Mask
-//                            (resultSet.getInt("Kod_student"),
-//                                    Integer.parseInt(resultSet.getString("Age")),
-//                                    Integer.parseInt(resultSet.getString("Kurs")),
-//                                    resultSet.getString("Name"),
-//                                    resultSet.getString("Surname"),
-//                                    resultSet.getString("Images"));
-//                    data.add(tempMask);
-//                    pAdapter.notifyDataSetInvalidated();
-//                }
-//                connection.close();
-//            }
-//            else {
-//                ConnectionResult="Check Connection";
-//            }
-//        }
-//        catch (Exception ex)
-//        {
-//            Toast.makeText(MainActivity.this,"Что-то пошло не так", Toast.LENGTH_LONG).show();
-//        }
-//        enterMobile();
-//    }
 
     public void Sort() //сортировка
     {
